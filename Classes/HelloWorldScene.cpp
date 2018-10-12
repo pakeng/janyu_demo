@@ -1,5 +1,5 @@
 #include "HelloWorldScene.h"
-
+#include "PayManager.hpp"
 
 USING_NS_CC;
 
@@ -34,13 +34,19 @@ bool HelloWorld::init()
     init_view();
     init_action();
     addChild(_rootNode);
-
+    // set callback
+    PayManager::getInstance()->setLayer(this);
     return true;
 }
 
 void HelloWorld::init_action()
 {
     _pay_btn->addClickEventListener([&](Ref* pSender){
+        if (_isInited){
+            PayManager::getInstance()->pay(_pay_id_input_box->getText(), _price_input_box->getText());
+        } else{
+            PayManager::getInstance()->init_sdk(_appid_input_box->getText(), _channel_input_box->getText());
+        }
         CCLOG("Call back");
     });
 }
@@ -50,30 +56,120 @@ void HelloWorld::init_view()
     auto main_layer = _rootNode->getChildByName("main_layer");
     auto root_panel = main_layer->getChildByName("Panel_1");
     _pay_btn = (cocos2d::ui::Button*)root_panel->getChildByName("Button_Pay");
+    _pay_btn->setTitleText("Init SDK");
+    _result_text = (cocos2d::ui::Text*)(root_panel->getChildByName("Image_4")->getChildByName("result"));
     auto pay_panel = root_panel->getChildByName("pay_panel");
     // APPID node
     auto appid_node = pay_panel->getChildByName("appid_node");
     auto title = (cocos2d::ui::Text*)appid_node->getChildByName("name");
-    _appid_input_box = (cocos2d::ui::TextField*)appid_node->getChildByName("input_bg")->getChildByName("input_box");
+    auto temp = (cocos2d::ui::TextField*)appid_node->getChildByName("input_bg");
+    SpriteFrame * frame = SpriteFrame::create("res/input_box_bg.png", Rect(0, 0, 10, 10));
+    temp->getChildByName("input_box")->removeFromParent();
+    _appid_input_box =cocos2d::ui::EditBox::create(Size(90,30),
+                                                    cocos2d::ui::Scale9Sprite::createWithSpriteFrame(frame));
+    _appid_input_box->setPosition(Vec2(15, 10));
+    _appid_input_box->setAnchorPoint(Vec2::ZERO);
+    _appid_input_box->setInputMode(cocos2d::ui::EditBox::InputMode::SINGLE_LINE);
+    _appid_input_box->setDelegate(this);
+    _appid_input_box->setTag(1001);
+    temp->addChild(_appid_input_box);
+
     title->setString("APPID:");
     title->setFontSize(24);
     // channel node
     auto channel_node = pay_panel->getChildByName("channel_node");
-    _channel_input_box = (cocos2d::ui::TextField*)channel_node->getChildByName("input_bg")->getChildByName("input_box");
+    temp = (cocos2d::ui::TextField*)channel_node->getChildByName("input_bg");
+    temp->getChildByName("input_box")->removeFromParent();
+    _channel_input_box =cocos2d::ui::EditBox::create(Size(90,30),
+                                                   cocos2d::ui::Scale9Sprite::createWithSpriteFrame(frame));
+    _channel_input_box->setPosition(Vec2(15, 10));
+    _channel_input_box->setAnchorPoint(Vec2::ZERO);
+    _channel_input_box->setInputMode(cocos2d::ui::EditBox::InputMode::SINGLE_LINE);
+    _channel_input_box->setDelegate(this);
+    _channel_input_box->setTag(1002);
+    temp->addChild(_channel_input_box);
+
     title = (cocos2d::ui::Text*)channel_node->getChildByName("name");
     title->setString("Channel:");
     title->setFontSize(24);
     // pay id node
     auto pay_id_node = pay_panel->getChildByName("payid_node");
-    _pay_id_input_box = (cocos2d::ui::TextField*)pay_id_node->getChildByName("input_bg")->getChildByName("input_box");
+    temp = (cocos2d::ui::TextField*)pay_id_node->getChildByName("input_bg");
+    temp->getChildByName("input_box")->removeFromParent();
+
+    _pay_id_input_box =cocos2d::ui::EditBox::create(Size(90,30),
+                                                    cocos2d::ui::Scale9Sprite::createWithSpriteFrame(frame));
+    _pay_id_input_box->setPosition(Vec2(15, 10));
+    _pay_id_input_box->setAnchorPoint(Vec2::ZERO);
+    _pay_id_input_box->setInputMode(cocos2d::ui::EditBox::InputMode::DECIMAL);
+    _pay_id_input_box->setDelegate(this);
+    _pay_id_input_box->setTag(1003);
+    temp->addChild(_pay_id_input_box);
     title = (cocos2d::ui::Text*)pay_id_node->getChildByName("name");
     title->setString("Pay id:");
     title->setFontSize(24);
     
     // price node
     auto price_node = pay_panel->getChildByName("price_node");
-    _price_input_box = (cocos2d::ui::TextField*)price_node->getChildByName("input_bg")->getChildByName("input_box");
+    temp = (cocos2d::ui::TextField*)price_node->getChildByName("input_bg");
+    temp->getChildByName("input_box")->removeFromParent();
+    _price_input_box =cocos2d::ui::EditBox::create(Size(90,30),
+                                                    cocos2d::ui::Scale9Sprite::createWithSpriteFrame(frame));
+    _price_input_box->setPosition(Vec2(15, 10));
+    _price_input_box->setAnchorPoint(Vec2::ZERO);
+    _price_input_box->setInputMode(cocos2d::ui::EditBox::InputMode::DECIMAL);
+    _price_input_box->setDelegate(this);
+    _price_input_box->setTag(1004);
+    temp->addChild(_price_input_box);
     title = (cocos2d::ui::Text*)price_node->getChildByName("name");
     title->setString("Price:");
     title->setFontSize(24);
 }
+
+void HelloWorld::pay_callback(bool result, std::string msg) {
+    CCLOG("pay_callback layer %s", msg.c_str());
+    _result_text->setString(_result_text->getString()+"\n"+msg);
+}
+
+void HelloWorld::init_callback(bool result, std::string msg) {
+    CCLOG("init_callback layer %s", msg.c_str());
+    if (result){
+        _pay_btn->setTitleText("Pay");
+        _result_text->setString(_result_text->getString()+"\n"+msg);
+        _isInited = true;
+    }else {
+        _isInited = false;
+    }
+}
+
+void HelloWorld::editBoxReturn(cocos2d::ui::EditBox *editBox) {
+    switch (editBox->getTag()){
+        case 1001:
+
+            break;
+        case 1002:
+
+            break;
+        case 1003:
+
+            break;
+        case 1004:
+
+            break;
+    }
+}
+
+HelloWorld::HelloWorld():
+_appid(""),
+_channel(""),
+_payid(""),
+_price(""),
+_isInited(false)
+{
+
+}
+
+HelloWorld::~HelloWorld() {
+
+}
+
