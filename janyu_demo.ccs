@@ -1,0 +1,47 @@
+<Solution>
+  <PropertyGroup Name="janyu_demo" Version="3.10.0.0" Type="CocosStudio" />
+  <SolutionFolder>
+    <Group ctype="ResourceGroup">
+      <RootFolder Name=".">
+        <Folder Name="res">
+          <PlistImageFolder Image="common.png" PListFile="common.plist" Name=".common_PList.Dir">
+            <PlistImageFile Name="com_anniu_1.png" Key="com_anniu_1.png" />
+            <PlistImageFile Name="com_anniu_2.png" Key="com_anniu_2.png" />
+            <PlistImageFile Name="com_anniu_3.png" Key="com_anniu_3.png" />
+            <PlistImageFile Name="com_anniu_4_1.png" Key="com_anniu_4_1.png" />
+            <PlistImageFile Name="com_anniu_4_2.png" Key="com_anniu_4_2.png" />
+            <PlistImageFile Name="com_anniu_5.png" Key="com_anniu_5.png" />
+            <PlistImageFile Name="com_anniu_6.png" Key="com_anniu_6.png" />
+            <PlistImageFile Name="com_bangding_anniu.png" Key="com_bangding_anniu.png" />
+            <PlistImageFile Name="com_di.png" Key="com_di.png" />
+            <PlistImageFile Name="com_dikuang_1.png" Key="com_dikuang_1.png" />
+            <PlistImageFile Name="com_friend_anniu_1.png" Key="com_friend_anniu_1.png" />
+            <PlistImageFile Name="com_friend_anniu_2.png" Key="com_friend_anniu_2.png" />
+            <PlistImageFile Name="com_guanbi_anniu.png" Key="com_guanbi_anniu.png" />
+            <PlistImageFile Name="com_kuang.png" Key="com_kuang.png" />
+            <PlistImageFile Name="com_num_di.png" Key="com_num_di.png" />
+            <PlistImageFile Name="com_shanhu.png" Key="com_shanhu.png" />
+            <PlistImageFile Name="com_share_btn.png" Key="com_share_btn.png" />
+            <PlistImageFile Name="com_tili_anniu_1.png" Key="com_tili_anniu_1.png" />
+            <PlistImageFile Name="com_tili_anniu_2.png" Key="com_tili_anniu_2.png" />
+            <PlistImageFile Name="com_tili_anniu_3.png" Key="com_tili_anniu_3.png" />
+            <PlistImageFile Name="cp_anniu_1.png" Key="cp_anniu_1.png" />
+            <PlistImageFile Name="cp_anniu_2.png" Key="cp_anniu_2.png" />
+            <PlistImageFile Name="cp_anniu_3.png" Key="cp_anniu_3.png" />
+            <PlistImageFile Name="cp_anniu_4.png" Key="cp_anniu_4.png" />
+            <PlistImageFile Name="login_btn.png" Key="login_btn.png" />
+            <PlistImageFile Name="shop_anniu_3.png" Key="shop_anniu_3.png" />
+            <PlistImageFile Name="shop_anniu_4.png" Key="shop_anniu_4.png" />
+          </PlistImageFolder>
+          <TTF Name="font_btn.ttf" />
+          <Image Name="HelloWorld.png" />
+          <Image Name="shop_beijing.jpg" />
+          <Image Name="shop_diban_2.png" />
+        </Folder>
+        <Project Name="input_node.csd" Type="Node" />
+        <Project Name="MianLayer.csd" Type="Layer" />
+        <Project Name="MainScene.csd" Type="Scene" />
+      </RootFolder>
+    </Group>
+  </SolutionFolder>
+</Solution>
