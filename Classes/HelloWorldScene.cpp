@@ -139,6 +139,7 @@ void HelloWorld::init_callback(bool result, std::string msg) {
         _isInited = true;
     }else {
         _isInited = false;
+        _result_text->setString(_result_text->getString()+"\n"+msg);
     }
 }
 

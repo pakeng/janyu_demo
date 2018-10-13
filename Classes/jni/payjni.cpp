@@ -18,7 +18,7 @@ JNIEXPORT void JNICALL Java_org_cocos2dx_cpp_AppActivity_pay_1result(JNIEnv* env
  */
 JNIEXPORT void JNICALL Java_org_cocos2dx_cpp_AppActivity_init_1result(JNIEnv* env, jobject obj, jboolean result, jstring msg)
 {
-    PayManager::getInstance()->init_result(true, jstring2str(env, msg));
+    PayManager::getInstance()->init_result(result, jstring2str(env, msg));
     CCLOG("init_result == %s", jstring2str(env, msg).c_str());
 }
 
