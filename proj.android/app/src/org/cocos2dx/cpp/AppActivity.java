@@ -78,4 +78,12 @@ public class AppActivity extends Cocos2dxActivity {
 
     private static native void pay_result(boolean result, String msg);
     private static native void init_result(boolean result, String msg);
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        JianYuSdk.getInstance().onRequestPermissionsResult(requestCode,permissions,grantResults);
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+    }
+
 }

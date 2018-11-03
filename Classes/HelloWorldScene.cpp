@@ -64,11 +64,14 @@ void HelloWorld::init_view()
     auto title = (cocos2d::ui::Text*)appid_node->getChildByName("name");
     auto temp = (cocos2d::ui::TextField*)appid_node->getChildByName("input_bg");
     SpriteFrame * frame = SpriteFrame::create("res/input_box_bg.png", Rect(0, 0, 10, 10));
+    Size input_size = temp->getChildByName("input_box")->getContentSize();
+    Vec2 input_position = temp->getChildByName("input_box")->getPosition();
+    Vec2 input_anchorpoint = temp->getChildByName("input_box")->getAnchorPoint();
     temp->getChildByName("input_box")->removeFromParent();
-    _appid_input_box =cocos2d::ui::EditBox::create(Size(90,30),
+    _appid_input_box =cocos2d::ui::EditBox::create(input_size,
                                                     cocos2d::ui::Scale9Sprite::createWithSpriteFrame(frame));
-    _appid_input_box->setPosition(Vec2(15, 10));
-    _appid_input_box->setAnchorPoint(Vec2::ZERO);
+    _appid_input_box->setPosition(input_position);
+    _appid_input_box->setAnchorPoint(input_anchorpoint);
     _appid_input_box->setInputMode(cocos2d::ui::EditBox::InputMode::SINGLE_LINE);
     _appid_input_box->setDelegate(this);
     _appid_input_box->setTag(1001);
@@ -79,11 +82,14 @@ void HelloWorld::init_view()
     // channel node
     auto channel_node = pay_panel->getChildByName("channel_node");
     temp = (cocos2d::ui::TextField*)channel_node->getChildByName("input_bg");
+    input_size = temp->getChildByName("input_box")->getContentSize();
+    input_position = temp->getChildByName("input_box")->getPosition();
+    input_anchorpoint = temp->getChildByName("input_box")->getAnchorPoint();
     temp->getChildByName("input_box")->removeFromParent();
-    _channel_input_box =cocos2d::ui::EditBox::create(Size(90,30),
+    _channel_input_box =cocos2d::ui::EditBox::create(input_size,
                                                    cocos2d::ui::Scale9Sprite::createWithSpriteFrame(frame));
-    _channel_input_box->setPosition(Vec2(15, 10));
-    _channel_input_box->setAnchorPoint(Vec2::ZERO);
+    _channel_input_box->setPosition(input_position);
+    _channel_input_box->setAnchorPoint(input_anchorpoint);
     _channel_input_box->setInputMode(cocos2d::ui::EditBox::InputMode::SINGLE_LINE);
     _channel_input_box->setDelegate(this);
     _channel_input_box->setTag(1002);
@@ -95,12 +101,15 @@ void HelloWorld::init_view()
     // pay id node
     auto pay_id_node = pay_panel->getChildByName("payid_node");
     temp = (cocos2d::ui::TextField*)pay_id_node->getChildByName("input_bg");
+    input_size = temp->getChildByName("input_box")->getContentSize();
+    input_position = temp->getChildByName("input_box")->getPosition();
+    input_anchorpoint = temp->getChildByName("input_box")->getAnchorPoint();
     temp->getChildByName("input_box")->removeFromParent();
 
-    _pay_id_input_box =cocos2d::ui::EditBox::create(Size(90,30),
+    _pay_id_input_box =cocos2d::ui::EditBox::create(input_size,
                                                     cocos2d::ui::Scale9Sprite::createWithSpriteFrame(frame));
-    _pay_id_input_box->setPosition(Vec2(15, 10));
-    _pay_id_input_box->setAnchorPoint(Vec2::ZERO);
+    _pay_id_input_box->setPosition(input_position);
+    _pay_id_input_box->setAnchorPoint(input_anchorpoint);
     _pay_id_input_box->setInputMode(cocos2d::ui::EditBox::InputMode::DECIMAL);
     _pay_id_input_box->setDelegate(this);
     _pay_id_input_box->setTag(1003);
@@ -112,11 +121,14 @@ void HelloWorld::init_view()
     // price node
     auto price_node = pay_panel->getChildByName("price_node");
     temp = (cocos2d::ui::TextField*)price_node->getChildByName("input_bg");
+    input_size = temp->getChildByName("input_box")->getContentSize();
+    input_position = temp->getChildByName("input_box")->getPosition();
+    input_anchorpoint = temp->getChildByName("input_box")->getAnchorPoint();
     temp->getChildByName("input_box")->removeFromParent();
-    _price_input_box =cocos2d::ui::EditBox::create(Size(90,30),
+    _price_input_box =cocos2d::ui::EditBox::create(input_size,
                                                     cocos2d::ui::Scale9Sprite::createWithSpriteFrame(frame));
-    _price_input_box->setPosition(Vec2(15, 10));
-    _price_input_box->setAnchorPoint(Vec2::ZERO);
+    _price_input_box->setPosition(input_position);
+    _price_input_box->setAnchorPoint(input_anchorpoint);
     _price_input_box->setInputMode(cocos2d::ui::EditBox::InputMode::DECIMAL);
     _price_input_box->setDelegate(this);
     _price_input_box->setTag(1004);
